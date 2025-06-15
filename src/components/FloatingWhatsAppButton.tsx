@@ -11,7 +11,7 @@ const FloatingWhatsAppButton = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Pedir pelo WhatsApp"
-      className="fixed z-50 bottom-32 right-5 rounded-full bg-green-500 hover:bg-green-600 shadow-lg p-4 animate-fade-in"
+      className="fixed z-50 bottom-[4.25rem] right-1 rounded-full bg-green-500 hover:bg-green-600 shadow-lg p-4 animate-fade-in"
       title="Pedir pelo WhatsApp"
     >
       <MessageCircle className="w-7 h-7 text-white" />

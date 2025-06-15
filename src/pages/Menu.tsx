@@ -9,6 +9,7 @@ import { useCart } from "@/hooks/useCart";
 import { toast } from "@/hooks/use-toast";
 import { mockCategories, mockProducts, type Category, type Product } from "@/data/mockData";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
+import DevGemsCredit from "@/components/DevGemsCredit";
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState<string>(""); // Ensure state is string
@@ -183,6 +184,7 @@ const Menu = () => {
           )}
         </div>
       </div>
+      <DevGemsCredit />
     </div>
   );
 };

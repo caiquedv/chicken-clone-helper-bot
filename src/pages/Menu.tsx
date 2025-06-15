@@ -10,7 +10,7 @@ import { toast } from "@/hooks/use-toast";
 import { mockCategories, mockProducts, type Category, type Product } from "@/data/mockData";
 
 const Menu = () => {
-  const [activeCategory, setActiveCategory] = useState("");
+  const [activeCategory, setActiveCategory] = useState<string>(""); // Ensure state is string
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -18,6 +18,7 @@ const Menu = () => {
 
   useEffect(() => {
     if (mockCategories.length > 0) {
+      // Always use String to ensure activeCategory is a string
       setActiveCategory(String(mockCategories[0].id));
     }
   }, []);
@@ -31,7 +32,9 @@ const Menu = () => {
     let filtered = mockProducts.filter(p => p.status === "active");
 
     if (activeCategory) {
-      filtered = filtered.filter(product => String(product.category_id) === activeCategory);
+      filtered = filtered.filter(
+        product => String(product.category_id) === String(activeCategory)
+      );
     }
     if (searchQuery) {
       filtered = filtered.filter(product =>
@@ -83,11 +86,12 @@ const Menu = () => {
               <Button
                 key={category.id}
                 variant={activeCategory === String(category.id) ? "default" : "outline"}
-                onClick={() => setActiveCategory(String(category.id))}
-                className={`flex items-center space-x-2 ${activeCategory === String(category.id)
-                  ? "bg-red-600 hover:bg-red-700"
-                  : "border-red-600 text-red-600 hover:bg-red-50"
-                  }`}
+                onClick={() => setActiveCategory(String(category.id))} // Ensure string
+                className={`flex items-center space-x-2 ${
+                  activeCategory === String(category.id)
+                    ? "bg-red-600 hover:bg-red-700"
+                    : "border-red-600 text-red-600 hover:bg-red-50"
+                }`}
               >
                 <span>{category.name}</span>
               </Button>
@@ -135,7 +139,7 @@ const Menu = () => {
 
               <CardFooter className="flex justify-between items-center">
                 <div className="text-2xl font-bold text-red-600">
-                  R$ {item.price.toFixed(2)}
+                  R$ {Number(item.price).toFixed(2)}
                 </div>
                 <Button
                   onClick={() => handleAddToCart(item)}

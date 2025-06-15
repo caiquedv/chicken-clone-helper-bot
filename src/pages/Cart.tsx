@@ -148,8 +148,19 @@ const Cart = () => {
           {/* Itens do Carrinho */}
           <div className="space-y-6">
             <Card>
-              <CardHeader>
-                <CardTitle>Seus Itens</CardTitle>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="flex items-center gap-3">
+                  Seus Itens
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="ml-2 text-red-600 hover:bg-red-50"
+                    type="button"
+                    onClick={clearCart}
+                  >
+                    Limpar Carrinho
+                  </Button>
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {items.map((item) => (

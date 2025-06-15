@@ -34,9 +34,6 @@ const Footer = () => {
               <a href="/" className="block text-gray-300 hover:text-white transition-colors">
                 Cardápio
               </a>
-              <a href="/cart" className="block text-gray-300 hover:text-white transition-colors">
-                Carrinho
-              </a>
               <a
                 href="https://api.whatsapp.com/send?phone=5566999138120"
                 target="_blank"
@@ -48,9 +45,22 @@ const Footer = () => {
             </div>
           </div>
         </div>
+        {/* Crédito DevGems */}
+        <div className="mt-8 text-center text-gray-400 text-xs">
+          Desenvolvido por{" "}
+          <a
+            href="https://api.whatsapp.com/send?phone=5511985208044"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-green-400 hover:underline font-medium"
+          >
+            DevGems
+          </a>
+        </div>
       </div>
     </footer>
   );
 };
 
 export default Footer;
+

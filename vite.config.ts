@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
+  base: "/chicken-clone-helper-bot/",
   plugins: [
     react(),
     mode === 'development' &&

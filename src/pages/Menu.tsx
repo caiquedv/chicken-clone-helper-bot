@@ -184,7 +184,15 @@ const Menu = () => {
           )}
         </div>
       </div>
-      <DevGemsCredit />
+      {/* Crédito DevGems fixo acima da barra de carrinho */}
+      <div
+        className="fixed left-0 w-full flex justify-center z-30 pointer-events-none"
+        style={{ bottom: totalItems > 0 ? "60px" : "32px" }}
+      >
+        <div className="pointer-events-auto">
+          <DevGemsCredit />
+        </div>
+      </div>
     </div>
   );
 };

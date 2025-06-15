@@ -128,39 +128,45 @@ const Menu = () => {
         </div>
 
         {mockCategories.length > 0 && !searchQuery && (
-          <div
-            className="
-              w-full overflow-x-auto mb-12
-              [&::-webkit-scrollbar]:hidden
-              -mx-4 px-4
+          <div className="relative w-full overflow-x-auto mb-10 -mx-4 px-4">
+            {/* Barra inferior fina para separação visual */}
+            <div className="absolute left-0 right-0 bottom-0 h-[1px] bg-gray-200 z-0" />
+            <div
+              className="
+                flex flex-nowrap gap-6 relative z-10
+                px-1 pt-2 pb-1
               "
-            style={{ WebkitOverflowScrolling: "touch" }}
-          >
-            <div className="flex flex-nowrap gap-3" style={{ minHeight: 52 }}>
-              {getOrderedCategories().map((category) => (
-                <Button
-                  key={String(category.id)}
-                  type="button"
-                  variant={activeCategory === String(category.id) ? "default" : "outline"}
-                  onClick={() => setActiveCategory(String(category.id))}
-                  className={`
-                    flex items-center transition 
-                    whitespace-nowrap
-                    px-6 py-2
-                    rounded-full font-semibold shadow-sm duration-200
-                    text-base
-                    border-2
-                    min-w-0
-                    ${activeCategory === String(category.id)
-                      ? "bg-red-600 text-white hover:bg-red-700 border-red-600 scale-105"
-                      : "border-red-600 text-red-600 bg-transparent hover:bg-red-50 hover:scale-105"
-                    }
-                  `}
-                  style={{ height: "auto" }}
-                >
-                  <span className="block truncate">{category.name}</span>
-                </Button>
-              ))}
+              style={{ WebkitOverflowScrolling: "touch" }}
+            >
+              {getOrderedCategories().map((category) => {
+                const isActive = activeCategory === String(category.id);
+                return (
+                  <button
+                    key={category.id}
+                    type="button"
+                    onClick={() => setActiveCategory(String(category.id))}
+                    className={`
+                      bg-transparent appearance-none border-none outline-none
+                      transition-colors duration-200
+                      font-semibold flex flex-col items-center
+                      px-1
+                      ${isActive ? "text-red-600" : "text-gray-700 hover:text-red-600"}
+                    `}
+                    style={{ minWidth: 0 }}
+                  >
+                    <span className="whitespace-nowrap text-base relative pb-1">
+                      {category.name}
+                      {/* barra vermelha animada para categoria ativa */}
+                      {isActive && (
+                        <span
+                          className="block h-[2px] rounded-full bg-red-600 absolute left-0 right-0 bottom-0 animate-slidein"
+                          style={{ transition: "width 0.18s", width: "100%" }}
+                        />
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}

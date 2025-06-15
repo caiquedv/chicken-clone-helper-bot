@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,7 +12,7 @@ const App = () => (
     <CartProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/chicken-clone-helper-bot/">
         <Routes>
           <Route path="/" element={<Menu />} />
           <Route path="/cart" element={<Cart />} />

@@ -10,8 +10,10 @@ import { toast } from "@/hooks/use-toast";
 import { mockCategories, mockProducts, type Category, type Product } from "@/data/mockData";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 import DevGemsCredit from "@/components/DevGemsCredit";
+import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
+  const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState<string>(""); // Ensure state is string
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -78,7 +80,7 @@ const Menu = () => {
           </span>
           <button
             className="bg-white text-red-600 font-bold rounded px-4 py-2 ml-3 shadow hover:bg-red-50 transition-colors"
-            onClick={() => window.location.assign('/cart')}
+            onClick={() => navigate('/cart')}
           >
             Ver Carrinho
           </button>

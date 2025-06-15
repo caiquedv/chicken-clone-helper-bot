@@ -119,15 +119,15 @@ const Cart = () => {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="flex flex-col min-h-screen bg-gray-50">
         <Navbar />
-        <div className="max-w-4xl mx-auto px-2 sm:px-4 py-8">
+        <div className="flex-1 max-w-4xl mx-auto px-2 sm:px-4 py-8 w-full">
           <div className="text-center py-12">
             <ShoppingBag className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-gray-800 mb-2">Seu carrinho está vazio</h2>
             <p className="text-gray-600 mb-6">Adicione alguns itens deliciosos do nosso cardápio!</p>
             <Button
-              onClick={() => navigate('/menu')}
+              onClick={() => navigate('/')}
               className="bg-red-600 hover:bg-red-700"
             >
               Ver Cardápio

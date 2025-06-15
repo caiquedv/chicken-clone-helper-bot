@@ -1,0 +1,53 @@
+# Nome do Workflow
+name: Deploy to GitHub Pages
+
+# Gatilho: Executar sempre que houver um push na branch 'main'
+on:
+  push:
+    branches:
+      - main
+
+# Permissões para o job poder escrever no repositório
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Define um job de deploy
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Baixa o código do seu repositório
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Configura o ambiente Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # 3. Instala as dependências do projeto
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Gera a versão de produção do site
+      - name: Build
+        run: npm run build
+
+      # 5. Configura as Páginas do GitHub
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 6. Faz o upload dos arquivos gerados no build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' # Pasta de saída do build do Vite
+
+      # 7. Faz o deploy para o GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

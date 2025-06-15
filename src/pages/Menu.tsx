@@ -1,11 +1,9 @@
-
 // ...code as described in your script for Menu page...
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import { useCart } from "@/hooks/useCart";
 import { toast } from "@/hooks/use-toast";
@@ -20,7 +18,7 @@ const Menu = () => {
 
   useEffect(() => {
     if (mockCategories.length > 0) {
-      setActiveCategory(mockCategories[0].id);
+      setActiveCategory(String(mockCategories[0].id));
     }
   }, []);
 
@@ -30,10 +28,10 @@ const Menu = () => {
   }, [activeCategory, searchQuery]);
 
   const filterProducts = () => {
-    let filtered = mockProducts;
+    let filtered = mockProducts.filter(p => p.status === "active");
 
     if (activeCategory) {
-      filtered = filtered.filter(product => product.category_id === activeCategory);
+      filtered = filtered.filter(product => String(product.category_id) === activeCategory);
     }
     if (searchQuery) {
       filtered = filtered.filter(product =>
@@ -84,9 +82,9 @@ const Menu = () => {
             {mockCategories.map((category) => (
               <Button
                 key={category.id}
-                variant={activeCategory === category.id ? "default" : "outline"}
-                onClick={() => setActiveCategory(category.id)}
-                className={`flex items-center space-x-2 ${activeCategory === category.id
+                variant={activeCategory === String(category.id) ? "default" : "outline"}
+                onClick={() => setActiveCategory(String(category.id))}
+                className={`flex items-center space-x-2 ${activeCategory === String(category.id)
                   ? "bg-red-600 hover:bg-red-700"
                   : "border-red-600 text-red-600 hover:bg-red-50"
                   }`}
@@ -122,7 +120,7 @@ const Menu = () => {
                   src={item.image_url || "https://images.unsplash.com/photo-1562967914-608f82629710"}
                   alt={item.name}
                   className="w-full h-48 object-cover rounded-t-lg"
-                  onError={(e) => {
+                  onError={e => {
                     (e.currentTarget as HTMLImageElement).src = "https://images.unsplash.com/photo-1562967914-608f82629710";
                   }}
                 />
@@ -162,8 +160,6 @@ const Menu = () => {
           )}
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 };

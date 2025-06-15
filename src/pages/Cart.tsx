@@ -86,6 +86,7 @@ const Cart = () => {
     }
   };
 
+  // Mensagem de pedido customizada conforme pedido do usuário:
   const createWhatsAppMessage = (orderId: string) => {
     const itemsList = items.map(item =>
       `${item.quantity}x ${item.name} - R$ ${(item.price * item.quantity).toFixed(2)}`
@@ -95,15 +96,17 @@ const Cart = () => {
     message += `👤 *Cliente:* ${customerName}\n`;
     message += `📞 *Telefone:* ${customerPhone}\n`;
     message += `📍 *Endereço:* ${customerAddress}\n\n`;
-    message += `🛒 *Itens:*\n${itemsList}\n\n`;
-    message += `💰 *Subtotal:* R$ ${subtotal.toFixed(2)}\n`;
-    message += `🚚 *Entrega:* R$ ${deliveryFee.toFixed(2)}\n`;
-    message += `💵 *Total:* R$ ${total.toFixed(2)}\n`;
+
+    message += `🛒 *Itens:*\n${itemsList}\n`;
+    if (observations) {
+      message += `\n📝 *Observações:* ${observations}\n`;
+    }
+    // Nova formatação solicitada:
+    message += `\n⏱️ *Tempo de espera estimado: 40 minutos*\n`;
+    message += `———————————————\n`;
+    message += `💰 *Total a pagar: R$ ${total.toFixed(2)}*\n`;
     message += `💳 *Pagamento:* ${getPaymentMethodName(paymentMethod)}\n`;
 
-    if (observations) {
-      message += `📝 *Observações:* ${observations}\n`;
-    }
     return message;
   };
 

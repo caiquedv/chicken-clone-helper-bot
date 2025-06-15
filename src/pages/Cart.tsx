@@ -282,7 +282,7 @@ const Cart = () => {
                   <Alert className="mb-4">
                     <AlertCircle className="h-4 w-4" />
                     <AlertDescription>
-                      <strong>Pagamento na entrega:</strong> O pagamento será feito no momento da entrega.
+                      Pagamento na entrega
                     </AlertDescription>
                   </Alert>
                   <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>

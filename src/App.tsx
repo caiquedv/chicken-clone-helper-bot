@@ -1,11 +1,32 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { CartProvider } from "@/hooks/useCart";
+import { useEffect } from "react";
 import Menu from "./pages/Menu";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
+
+// Componente para lidar com redirecionamentos do GitHub Pages
+const RedirectHandler = () => {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const redirect = sessionStorage.redirect;
+    if (redirect) {
+      delete sessionStorage.redirect;
+      // Extrai o pathname da URL salva
+      const url = new URL(redirect);
+      const targetPath = url.pathname + url.search + url.hash;
+      if (targetPath !== '/') {
+        navigate(targetPath, { replace: true });
+      }
+    }
+  }, [navigate]);
+  
+  return null;
+};
 
 const App = () => (
   <TooltipProvider>
@@ -13,6 +34,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <RedirectHandler />
         <Routes>
           <Route path="/" element={<Menu />} />
           <Route path="/cart" element={<Cart />} />
@@ -23,4 +45,4 @@ const App = () => (
   </TooltipProvider>
 );
 
-export default App;  
+export default App;

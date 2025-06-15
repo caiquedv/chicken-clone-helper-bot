@@ -23,4 +23,4 @@ const App = () => (
   </TooltipProvider>
 );
 
-export default App;
+export default App; 

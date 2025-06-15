@@ -1,4 +1,3 @@
-
 import { Product } from "./types";
 
 export const products: Product[] = [
@@ -92,7 +91,7 @@ export const products: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 60.0,
     category_id: "frango-assado",
-    image_url: "https://i.ibb.co/BVpyQLhb/frango-a-passarinho-por-o-familiar.jpg",
+    image_url: "https://i.ibb.co/fYyJK511/frango-a-passarinho.jpg",
     status: "active",
   },
 

@@ -90,7 +90,7 @@ const Menu = () => {
       {/* Botão flutuante do WhatsApp */}
       <FloatingWhatsAppButton />
 
-      <div className="max-w-7xl mx-auto px-4 py-8 pb-24">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Nosso <span className="text-red-600">Cardápio</span>
@@ -186,7 +186,6 @@ const Menu = () => {
           )}
         </div>
       </div>
-      {/* Crédito DevGems fixo acima da barra de carrinho */}
       <div
         style={{ bottom: totalItems > 0 ? "60px" : "32px" }}
       >

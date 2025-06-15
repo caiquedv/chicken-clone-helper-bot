@@ -12,7 +12,7 @@ const App = () => (
     <CartProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/chicken-clone-helper-bot/">
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Menu />} />
           <Route path="/cart" element={<Cart />} />

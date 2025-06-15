@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
@@ -52,20 +51,34 @@ const Menu = () => {
     filterProducts();
   }, [activeCategory, searchQuery]);
 
+  // Corrigindo e investigando a filtragem
   const filterProducts = () => {
-    let filtered = mockProducts.filter(p => p.status === "active");
+    let filtered = mockProducts.filter((p) => p.status === "active");
 
-    if (activeCategory) {
+    if (activeCategory && activeCategory !== "") {
       filtered = filtered.filter(
-        product => String(product.category_id) === String(activeCategory)
+        (product) =>
+          String(product.category_id) === String(activeCategory)
       );
     }
     if (searchQuery) {
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (product.description && product.description.toLowerCase().includes(searchQuery.toLowerCase()))
+      filtered = filtered.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (product.description &&
+            product.description.toLowerCase().includes(searchQuery.toLowerCase()))
       );
     }
+
+    // LOG para depuração!
+    console.log('Filtro -> Categoria:', activeCategory, '| Busca:', searchQuery);
+    console.log(
+      'Produtos filtrados:',
+      filtered.map((p) => ({
+        nome: p.name,
+        categoria: p.category_id,
+      }))
+    );
 
     setFilteredProducts(filtered);
   };

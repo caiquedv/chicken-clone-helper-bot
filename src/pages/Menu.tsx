@@ -133,26 +133,32 @@ const Menu = () => {
               w-full overflow-x-auto mb-12
               [&::-webkit-scrollbar]:hidden
               -mx-4 px-4
-            "
+              "
+            style={{ WebkitOverflowScrolling: "touch" }}
           >
-            <div className="flex flex-nowrap gap-2">
+            <div className="flex flex-nowrap gap-3" style={{ minHeight: 52 }}>
               {getOrderedCategories().map((category) => (
                 <Button
                   key={String(category.id)}
+                  type="button"
                   variant={activeCategory === String(category.id) ? "default" : "outline"}
                   onClick={() => setActiveCategory(String(category.id))}
                   className={`
                     flex items-center transition 
                     whitespace-nowrap
+                    px-6 py-2
+                    rounded-full font-semibold shadow-sm duration-200
+                    text-base
+                    border-2
+                    min-w-0
                     ${activeCategory === String(category.id)
-                      ? "bg-red-600 text-white hover:bg-red-700 scale-105"
-                      : "border-red-600 text-red-600 hover:bg-red-50 hover:scale-105"
+                      ? "bg-red-600 text-white hover:bg-red-700 border-red-600 scale-105"
+                      : "border-red-600 text-red-600 bg-transparent hover:bg-red-50 hover:scale-105"
                     }
-                    px-5 py-3 rounded-full font-semibold shadow-sm duration-200
                   `}
-                  style={{ minWidth: 120 }}
+                  style={{ height: "auto" }}
                 >
-                  <span>{category.name}</span>
+                  <span className="block truncate">{category.name}</span>
                 </Button>
               ))}
             </div>

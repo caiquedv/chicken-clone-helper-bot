@@ -33,7 +33,7 @@ const Menu = () => {
 
     if (activeCategory) {
       filtered = filtered.filter(
-        product => String(product.category_id) === String(activeCategory)
+        product => String(product.category_id) === activeCategory
       );
     }
     if (searchQuery) {
@@ -84,9 +84,9 @@ const Menu = () => {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             {mockCategories.map((category) => (
               <Button
-                key={category.id}
+                key={String(category.id)}
                 variant={activeCategory === String(category.id) ? "default" : "outline"}
-                onClick={() => setActiveCategory(String(category.id))} // Ensure string
+                onClick={() => setActiveCategory(String(category.id))}
                 className={`flex items-center space-x-2 ${
                   activeCategory === String(category.id)
                     ? "bg-red-600 hover:bg-red-700"

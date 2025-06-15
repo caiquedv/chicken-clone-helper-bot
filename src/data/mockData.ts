@@ -140,7 +140,7 @@ export const mockProducts: Product[] = [
     status: "active",
   },
   {
-    id: "passarinho-familiar",
+    id: "passarinho-familiar-frangoassado",
     name: "Frango à Passarinho - Porção Famíliar",
     description: "Acompanha molho barbecue e molho de alho.",
     price: 60.0,
@@ -374,7 +374,7 @@ export const mockProducts: Product[] = [
     status: "active",
   },
   {
-    id: "passarinho",
+    id: "passarinho-porcoes",
     name: "Frango à Passarinho",
     description: "Sem descrição",
     price: 35.0,
@@ -383,7 +383,7 @@ export const mockProducts: Product[] = [
     status: "active",
   },
   {
-    id: "passarinho-familiar",
+    id: "passarinho-familiar-porcoes",
     name: "Frango à Passarinho - Porção Familiar",
     description: "Sem descrição",
     price: 50.0,

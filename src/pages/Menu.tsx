@@ -20,6 +20,32 @@ const Menu = () => {
 
   const { addToCart, getTotalItems } = useCart();
 
+  // Função para ordenar as categorias dinamicamente:
+  const getOrderedCategories = () => {
+    if (!mockCategories || mockCategories.length === 0) return [];
+
+    // Ache os ids relevantes. Suporte tanto string quanto number como id.
+    const byName = (name: string) =>
+      mockCategories.find(cat => cat.name.toLowerCase().includes(name));
+    const prom = byName("promo");
+    const combo = byName("combo");
+    const bebidas = byName("bebida");
+
+    // Todas as categorias ignorando as três especiais:
+    const rest = mockCategories.filter(cat =>
+      cat !== prom && cat !== combo && cat !== bebidas
+    );
+
+    const ordered = [
+      prom,
+      combo,
+      ...rest,
+      bebidas,
+    ].filter(Boolean);
+
+    return ordered;
+  };
+
   useEffect(() => {
     if (mockCategories.length > 0) {
       setActiveCategory(String(mockCategories[0].id)); // Always string
@@ -72,7 +98,7 @@ const Menu = () => {
   return (
     <div className="min-h-screen bg-gray-50 relative">
       <Navbar />
-      {/* Barra de carrinho fixa no rodapé quando houver itens */}
+      
       {totalItems > 0 && (
         <div className="fixed bottom-0 left-0 w-full bg-red-600 text-white z-40 flex items-center justify-between px-4 py-3 shadow-lg animate-fade-in">
           <span className="font-semibold">
@@ -87,7 +113,6 @@ const Menu = () => {
         </div>
       )}
 
-      {/* Botão flutuante do WhatsApp */}
       <FloatingWhatsAppButton />
 
       <div className="max-w-7xl mx-auto px-4 py-8 pb-24">
@@ -103,21 +128,34 @@ const Menu = () => {
         </div>
 
         {mockCategories.length > 0 && !searchQuery && (
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {mockCategories.map((category) => (
-              <Button
-                key={String(category.id)}
-                variant={activeCategory === String(category.id) ? "default" : "outline"}
-                onClick={() => setActiveCategory(String(category.id))}
-                className={`flex items-center space-x-2 ${
-                  activeCategory === String(category.id)
-                    ? "bg-red-600 hover:bg-red-700"
-                    : "border-red-600 text-red-600 hover:bg-red-50"
-                }`}
-              >
-                <span>{category.name}</span>
-              </Button>
-            ))}
+          <div
+            className="
+              w-full overflow-x-auto mb-12
+              [&::-webkit-scrollbar]:hidden
+              -mx-4 px-4
+            "
+          >
+            <div className="flex flex-nowrap gap-2">
+              {getOrderedCategories().map((category) => (
+                <Button
+                  key={String(category.id)}
+                  variant={activeCategory === String(category.id) ? "default" : "outline"}
+                  onClick={() => setActiveCategory(String(category.id))}
+                  className={`
+                    flex items-center transition 
+                    whitespace-nowrap
+                    ${activeCategory === String(category.id)
+                      ? "bg-red-600 text-white hover:bg-red-700 scale-105"
+                      : "border-red-600 text-red-600 hover:bg-red-50 hover:scale-105"
+                    }
+                    px-5 py-3 rounded-full font-semibold shadow-sm duration-200
+                  `}
+                  style={{ minWidth: 120 }}
+                >
+                  <span>{category.name}</span>
+                </Button>
+              ))}
+            </div>
           </div>
         )}
 

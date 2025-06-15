@@ -8,13 +8,14 @@ import SearchBar from "@/components/SearchBar";
 import { useCart } from "@/hooks/useCart";
 import { toast } from "@/hooks/use-toast";
 import { mockCategories, mockProducts, type Category, type Product } from "@/data/mockData";
+import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState<string>(""); // Ensure state is string
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { addToCart } = useCart();
+  const { addToCart, getTotalItems } = useCart();
 
   useEffect(() => {
     if (mockCategories.length > 0) {
@@ -63,10 +64,30 @@ const Menu = () => {
     if (query) setActiveCategory("");
   };
 
+  const totalItems = getTotalItems();
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 relative">
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      {/* Barra de carrinho fixa no rodapé quando houver itens */}
+      {totalItems > 0 && (
+        <div className="fixed bottom-0 left-0 w-full bg-red-600 text-white z-40 flex items-center justify-between px-4 py-3 shadow-lg animate-fade-in">
+          <span className="font-semibold">
+            {totalItems} item{totalItems !== 1 ? "s" : ""} no carrinho
+          </span>
+          <button
+            className="bg-white text-red-600 font-bold rounded px-4 py-2 ml-3 shadow hover:bg-red-50 transition-colors"
+            onClick={() => window.location.assign('/cart')}
+          >
+            Ver Carrinho
+          </button>
+        </div>
+      )}
+
+      {/* Botão flutuante do WhatsApp */}
+      <FloatingWhatsAppButton />
+
+      <div className="max-w-7xl mx-auto px-4 py-8 pb-24">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Nosso <span className="text-red-600">Cardápio</span>

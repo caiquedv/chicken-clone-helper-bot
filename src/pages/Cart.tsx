@@ -62,7 +62,7 @@ const Cart = () => {
       const orderId = generateOrderId();
 
       const whatsappMessage = createWhatsAppMessage(orderId);
-      const whatsappUrl = `https://api.whatsapp.com/send?phone=5511985208044&text=${encodeURIComponent(whatsappMessage)}`;
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=5566999138120&text=${encodeURIComponent(whatsappMessage)}`;
 
       clearCart();
 

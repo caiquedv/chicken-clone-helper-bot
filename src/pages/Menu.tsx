@@ -23,19 +23,14 @@ const Menu = () => {
   // Função para ordenar as categorias dinamicamente:
   const getOrderedCategories = () => {
     if (!mockCategories || mockCategories.length === 0) return [];
-
-    // Ache os ids relevantes. Suporte tanto string quanto number como id.
     const byName = (name: string) =>
       mockCategories.find(cat => cat.name.toLowerCase().includes(name));
     const prom = byName("promo");
     const combo = byName("combo");
     const bebidas = byName("bebida");
-
-    // Todas as categorias ignorando as três especiais:
     const rest = mockCategories.filter(cat =>
       cat !== prom && cat !== combo && cat !== bebidas
     );
-
     const ordered = [
       prom,
       combo,
@@ -46,9 +41,11 @@ const Menu = () => {
     return ordered;
   };
 
+  // Altere aqui: sempre iniciar pela 1ª da ordem correta
   useEffect(() => {
-    if (mockCategories.length > 0) {
-      setActiveCategory(String(mockCategories[0].id)); // Always string
+    const ordered = getOrderedCategories();
+    if (ordered.length > 0) {
+      setActiveCategory(String(ordered[0].id)); // Corrigido: pega da ordered, não do mockCategories
     }
   }, []);
 
@@ -130,14 +127,14 @@ const Menu = () => {
         {mockCategories.length > 0 && !searchQuery && (
           <div
             className="
-              relative w-full mb-10 -mx-4 px-4
+              relative w-full mb-10
               overflow-x-auto
               whitespace-nowrap
-              flex
-              items-center
+              flex items-center
               select-none
               z-10
               scrollbar-hide
+              pl-4 pr-4
             "
             style={{
               WebkitOverflowScrolling: "touch",
@@ -145,12 +142,16 @@ const Menu = () => {
               scrollbarWidth: "none"
             }}
           >
-            {/* Estilo global no próprio container para esconder a barra (cross-browser) */}
             <style>
               {`
+                /* Esconde a barra em todos browsers */
                 .scrollbar-hide::-webkit-scrollbar {
                   display: none;
                   height: 0;
+                }
+                .scrollbar-hide {
+                  -ms-overflow-style: none;
+                  scrollbar-width: none;
                 }
               `}
             </style>
@@ -169,24 +170,24 @@ const Menu = () => {
                     type="button"
                     onClick={() => setActiveCategory(String(category.id))}
                     className={`
-                      transition-colors duration-200
                       font-semibold 
                       flex flex-col items-center
                       px-4 py-2
                       bg-transparent border-none outline-none
                       rounded-md
                       w-auto
+                      transition-colors
+                      duration-200
                       ${isActive ? "text-red-600" : "text-gray-700 hover:text-red-600"}
                     `}
                     style={{
                       minWidth: 0,
+                      background: "transparent",
                       position: "relative",
-                      background: "transparent"
                     }}
                   >
                     <span className="whitespace-nowrap text-base relative pb-1">
                       {category.name}
-                      {/* barra vermelha animada para categoria ativa */}
                       {isActive && (
                         <span
                           className="block h-[2px] rounded-full bg-red-600 absolute left-0 right-0 bottom-0"
@@ -201,6 +202,13 @@ const Menu = () => {
                 );
               })}
             </div>
+            {/* gradientes suaves nas laterais para efeito de "sumir" texto */}
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 z-20" style={{
+              background: "linear-gradient(to right, #f9fafb 80%, transparent)"
+            }} />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 z-20" style={{
+              background: "linear-gradient(to left, #f9fafb 80%, transparent)"
+            }} />
           </div>
         )}
 

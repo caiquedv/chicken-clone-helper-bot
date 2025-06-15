@@ -1,4 +1,3 @@
-
 export type Category = {
   id: string;
   name: string;
@@ -63,7 +62,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 11.0,
     category_id: "bebidas",
-    image_url: "",
+    image_url: "https://i.ibb.co/b5YkZs4B/coca-1-5-L.jpg",
     status: "active",
   },
   {
@@ -72,7 +71,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 15.0,
     category_id: "bebidas",
-    image_url: "",
+    image_url: "https://i.ibb.co/996M78Xv/coca-2L.jpg",
     status: "active",
   },
   {
@@ -81,7 +80,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 11.0,
     category_id: "bebidas",
-    image_url: "",
+    image_url: "https://i.ibb.co/rKQp6VvB/guarana-antartida.jpg",
     status: "active",
   },
   {
@@ -90,7 +89,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 11.0,
     category_id: "bebidas",
-    image_url: "",
+    image_url: "https://i.ibb.co/TqwJ9FdG/coca-zero-1-5-L.jpg",
     status: "active",
   },
   {
@@ -99,7 +98,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 5.0,
     category_id: "bebidas",
-    image_url: "",
+    image_url: "https://i.ibb.co/bgjKk78j/coca-cola-lata-310-ML.jpg",
     status: "active",
   },
   {
@@ -108,7 +107,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 15.0,
     category_id: "bebidas",
-    image_url: "",
+    image_url: "https://i.ibb.co/xtpwtVNT/suco-natural-de-laranja.jpg",
     status: "active",
   },
   {
@@ -117,7 +116,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 10.0,
     category_id: "bebidas",
-    image_url: "",
+    image_url: "https://i.ibb.co/xtpwtVNT/suco-natural-de-laranja.jpg",
     status: "active",
   },
 
@@ -128,7 +127,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 60.0,
     category_id: "frango-assado",
-    image_url: "",
+    image_url: "https://i.ibb.co/77cFFdT/coxinha-da-asa-por-o-familiar.jpg",
     status: "active",
   },
   {
@@ -137,7 +136,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 60.0,
     category_id: "frango-assado",
-    image_url: "",
+    image_url: "https://i.ibb.co/xKp60vmx/coxa-sobre-coxa-por-o-familiar.jpg",
     status: "active",
   },
   {
@@ -146,7 +145,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 60.0,
     category_id: "frango-assado",
-    image_url: "",
+    image_url: "https://i.ibb.co/BVpyQLhb/frango-a-passarinho-por-o-familiar.jpg",
     status: "active",
   },
 
@@ -157,7 +156,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 67.0,
     category_id: "frango-crocante",
-    image_url: "",
+    image_url: "https://i.ibb.co/SDtkMMkF/coxinha-da-asa-empanada-por-o-familiar.jpg",
     status: "active",
   },
   {
@@ -166,7 +165,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 35.0,
     category_id: "frango-crocante",
-    image_url: "",
+    image_url: "https://i.ibb.co/SDtkMMkF/coxinha-da-asa-empanada-por-o-familiar.jpg",
     status: "active",
   },
   {
@@ -175,7 +174,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 40.0,
     category_id: "frango-crocante",
-    image_url: "",
+    image_url: "https://i.ibb.co/cSL9cQkW/frango-crocante-batata-frita-com-calabresa.jpg",
     status: "active",
   },
   {
@@ -184,7 +183,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 75.0,
     category_id: "frango-crocante",
-    image_url: "",
+    image_url: "https://i.ibb.co/cSL9cQkW/frango-crocante-batata-frita-com-calabresa.jpg",
     status: "active",
   },
   {
@@ -193,7 +192,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 35.0,
     category_id: "frango-crocante",
-    image_url: "",
+    image_url: "https://i.ibb.co/ynJC6rm6/tulipa-empanada-por-o-familiar.jpg",
     status: "active",
   },
   {
@@ -202,7 +201,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 67.0,
     category_id: "frango-crocante",
-    image_url: "",
+    image_url: "https://i.ibb.co/ynJC6rm6/tulipa-empanada-por-o-familiar.jpg",
     status: "active",
   },
 
@@ -213,7 +212,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 49.90,
     category_id: "promocoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/N2XQds6q/frango-a-passarinho-por-o-familiar.jpg",
     status: "active",
   },
   {
@@ -222,7 +221,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 59.90,
     category_id: "promocoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/N2XQds6q/frango-a-passarinho-por-o-familiar.jpg",
     status: "active",
   },
 
@@ -233,7 +232,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 65.0,
     category_id: "frango-frito-empanado",
-    image_url: "",
+    image_url: "https://i.ibb.co/j98BjzrS/frango-empanado-batata-frita-coca-1-5-L.jpg",
     status: "active",
   },
   {
@@ -242,7 +241,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 60.0,
     category_id: "frango-frito-empanado",
-    image_url: "",
+    image_url: "https://i.ibb.co/N2XQds6q/frango-a-passarinho-por-o-familiar.jpg",
     status: "active",
   },
 
@@ -253,7 +252,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 60.0,
     category_id: "combos",
-    image_url: "",
+    image_url: "https://i.ibb.co/j98BjzrS/frango-empanado-batata-frita-coca-1-5-L.jpg",
     status: "active",
   },
   {
@@ -262,7 +261,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 60.0,
     category_id: "combos",
-    image_url: "",
+    image_url: "https://i.ibb.co/j98BjzrS/frango-empanado-batata-frita-coca-1-5-L.jpg",
     status: "active",
   },
   {
@@ -271,7 +270,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 72.0,
     category_id: "combos",
-    image_url: "",
+    image_url: "https://i.ibb.co/cSL9cQkW/frango-crocante-batata-frita-com-calabresa.jpg",
     status: "active",
   },
   {
@@ -280,7 +279,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 72.0,
     category_id: "combos",
-    image_url: "",
+    image_url: "https://i.ibb.co/cSL9cQkW/frango-crocante-batata-frita-com-calabresa.jpg",
     status: "active",
   },
   {
@@ -289,7 +288,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 83.0,
     category_id: "combos",
-    image_url: "",
+    image_url: "https://i.ibb.co/cSL9cQkW/frango-crocante-batata-frita-com-calabresa.jpg",
     status: "active",
   },
   {
@@ -298,7 +297,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 83.0,
     category_id: "combos",
-    image_url: "",
+    image_url: "https://i.ibb.co/cSL9cQkW/frango-crocante-batata-frita-com-calabresa.jpg",
     status: "active",
   },
   {
@@ -307,7 +306,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 71.0,
     category_id: "combos",
-    image_url: "",
+    image_url: "https://i.ibb.co/j98BjzrS/frango-empanado-batata-frita-coca-1-5-L.jpg",
     status: "active",
   },
   {
@@ -316,7 +315,7 @@ export const mockProducts: Product[] = [
     description: "Acompanha molho barbecue e molho de alho.",
     price: 71.0,
     category_id: "combos",
-    image_url: "",
+    image_url: "https://i.ibb.co/j98BjzrS/frango-empanado-batata-frita-coca-1-5-L.jpg",
     status: "active",
   },
   // PORÇÕES
@@ -326,7 +325,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 30.0,
     category_id: "porcoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/cSH0TLgb/batata-frita.jpg",
     status: "active",
   },
   {
@@ -335,7 +334,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 45.0,
     category_id: "porcoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/jkkFDQy4/batata-frita-especial.jpg",
     status: "active",
   },
   {
@@ -344,7 +343,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 30.0,
     category_id: "porcoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/BHcf5BFg/calabresa.jpg",
     status: "active",
   },
   {
@@ -353,7 +352,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 40.0,
     category_id: "porcoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/cSH0TLgb/batata-frita.jpg",
     status: "active",
   },
   {
@@ -362,7 +361,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 60.0,
     category_id: "porcoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/jkkFDQy4/batata-frita-especial.jpg",
     status: "active",
   },
   {
@@ -371,7 +370,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 40.0,
     category_id: "porcoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/BHcf5BFg/calabresa.jpg",
     status: "active",
   },
   {
@@ -380,7 +379,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 35.0,
     category_id: "porcoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/fYyJK511/frango-a-passarinho.jpg",
     status: "active",
   },
   {
@@ -389,7 +388,7 @@ export const mockProducts: Product[] = [
     description: "Sem descrição",
     price: 50.0,
     category_id: "porcoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/fYyJK511/frango-a-passarinho.jpg",
     status: "active",
   },
   {
@@ -398,7 +397,7 @@ export const mockProducts: Product[] = [
     description: "Batata Frita + Calabresa.",
     price: 30.0,
     category_id: "porcoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/tMMtXX5h/por-o-mista-familiar.jpg",
     status: "active",
   },
   {
@@ -407,7 +406,7 @@ export const mockProducts: Product[] = [
     description: "Batata Frita + Calabresa.",
     price: 45.0,
     category_id: "porcoes",
-    image_url: "",
+    image_url: "https://i.ibb.co/tMMtXX5h/por-o-mista-familiar.jpg",
     status: "active",
   },
 ];

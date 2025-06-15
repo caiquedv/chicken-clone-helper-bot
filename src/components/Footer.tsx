@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Logo */}
           <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold mb-4">🍗 Big Chicken</h3>
+            <h3 className="text-2xl font-bold mb-4" translate="no">🍗 Big Chicken</h3>
             <p className="text-sm text-gray-400">
               © 2024 Big Chicken. Todos os direitos reservados.
             </p>
@@ -63,4 +63,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

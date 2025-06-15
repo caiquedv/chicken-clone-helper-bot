@@ -13,7 +13,7 @@ const Navbar = () => {
             className="flex items-center cursor-pointer"
             onClick={() => navigate("/")}
           >
-            <span className="text-2xl font-bold text-red-600">
+            <span className="text-2xl font-bold text-red-600" translate="no">
               🍗 Big Chicken
             </span>
           </div>

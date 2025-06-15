@@ -18,8 +18,7 @@ const Menu = () => {
 
   useEffect(() => {
     if (mockCategories.length > 0) {
-      // Always use String to ensure activeCategory is a string
-      setActiveCategory(String(mockCategories[0].id));
+      setActiveCategory(String(mockCategories[0].id)); // Always string
     }
   }, []);
 
@@ -33,7 +32,7 @@ const Menu = () => {
 
     if (activeCategory) {
       filtered = filtered.filter(
-        product => String(product.category_id) === activeCategory
+        product => String(product.category_id) === String(activeCategory)
       );
     }
     if (searchQuery) {
@@ -67,7 +66,6 @@ const Menu = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">

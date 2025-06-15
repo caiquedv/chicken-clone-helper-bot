@@ -5,8 +5,10 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/hooks/useCart";
 import Index from "./pages/Index";
+import Menu from "./pages/Menu";
+import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
-// As páginas Menu e Cart serão criadas nos próximos passos.
+
 const App = () => (
   <TooltipProvider>
     <CartProvider>
@@ -15,8 +17,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* <Route path="/menu" element={<Menu />} /> */}
-          {/* <Route path="/cart" element={<Cart />} /> */}
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

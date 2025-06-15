@@ -128,15 +128,38 @@ const Menu = () => {
         </div>
 
         {mockCategories.length > 0 && !searchQuery && (
-          <div className="relative w-full overflow-x-auto mb-10 -mx-4 px-4">
-            {/* Barra inferior fina para separação visual */}
-            <div className="absolute left-0 right-0 bottom-0 h-[1px] bg-gray-200 z-0" />
+          <div
+            className="
+              relative w-full mb-10 -mx-4 px-4
+              overflow-x-auto
+              whitespace-nowrap
+              flex
+              items-center
+              select-none
+              z-10
+              scrollbar-hide
+            "
+            style={{
+              WebkitOverflowScrolling: "touch",
+              msOverflowStyle: "none",
+              scrollbarWidth: "none"
+            }}
+          >
+            {/* Estilo global no próprio container para esconder a barra (cross-browser) */}
+            <style>
+              {`
+                .scrollbar-hide::-webkit-scrollbar {
+                  display: none;
+                  height: 0;
+                }
+              `}
+            </style>
             <div
               className="
-                flex flex-nowrap gap-6 relative z-10
-                px-1 pt-2 pb-1
+                flex flex-nowrap gap-2
+                w-max
+                py-2
               "
-              style={{ WebkitOverflowScrolling: "touch" }}
             >
               {getOrderedCategories().map((category) => {
                 const isActive = activeCategory === String(category.id);
@@ -146,21 +169,31 @@ const Menu = () => {
                     type="button"
                     onClick={() => setActiveCategory(String(category.id))}
                     className={`
-                      bg-transparent appearance-none border-none outline-none
                       transition-colors duration-200
-                      font-semibold flex flex-col items-center
-                      px-1
+                      font-semibold 
+                      flex flex-col items-center
+                      px-4 py-2
+                      bg-transparent border-none outline-none
+                      rounded-md
+                      w-auto
                       ${isActive ? "text-red-600" : "text-gray-700 hover:text-red-600"}
                     `}
-                    style={{ minWidth: 0 }}
+                    style={{
+                      minWidth: 0,
+                      position: "relative",
+                      background: "transparent"
+                    }}
                   >
                     <span className="whitespace-nowrap text-base relative pb-1">
                       {category.name}
                       {/* barra vermelha animada para categoria ativa */}
                       {isActive && (
                         <span
-                          className="block h-[2px] rounded-full bg-red-600 absolute left-0 right-0 bottom-0 animate-slidein"
-                          style={{ transition: "width 0.18s", width: "100%" }}
+                          className="block h-[2px] rounded-full bg-red-600 absolute left-0 right-0 bottom-0"
+                          style={{
+                            width: "100%",
+                            transition: "width 0.18s"
+                          }}
                         />
                       )}
                     </span>

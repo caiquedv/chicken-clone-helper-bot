@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
@@ -15,6 +16,7 @@ const Menu = () => {
   const [activeCategory, setActiveCategory] = useState<string>("");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [categoryBeforeSearch, setCategoryBeforeSearch] = useState<string>(""); // Nova state para lembrar categoria antes da busca
 
   const { addToCart, getTotalItems } = useCart();
 
@@ -97,8 +99,18 @@ const Menu = () => {
   };
 
   const handleSearch = (query: string) => {
+    // Se está iniciando uma busca (query não vazia) e não havia busca antes
+    if (query && !searchQuery) {
+      setCategoryBeforeSearch(activeCategory); // Salva a categoria atual
+      setActiveCategory(""); // Limpa categoria para mostrar todos os produtos na busca
+    }
+    
+    // Se está limpando a busca (query vazia) e havia uma busca antes
+    if (!query && searchQuery) {
+      setActiveCategory(categoryBeforeSearch); // Restaura a categoria anterior
+    }
+    
     setSearchQuery(query);
-    if (query) setActiveCategory("");
   };
 
   const totalItems = getTotalItems();

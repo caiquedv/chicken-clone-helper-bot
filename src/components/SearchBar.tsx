@@ -1,15 +1,21 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, X } from "lucide-react";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
+  searchQuery?: string; // Nova prop para controlar o valor do input externamente
 }
 
-const SearchBar = ({ onSearch }: SearchBarProps) => {
-  const [query, setQuery] = useState("");
+const SearchBar = ({ onSearch, searchQuery = "" }: SearchBarProps) => {
+  const [query, setQuery] = useState(searchQuery);
+
+  // Sincroniza o estado local com a prop externa
+  useEffect(() => {
+    setQuery(searchQuery);
+  }, [searchQuery]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

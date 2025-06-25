@@ -37,4 +37,9 @@ export const categories: Category[] = [
     name: "Porções",
     image_url: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
   },
+  {
+    id: "caldos",
+    name: "Caldos",
+    image_url: "https://images.unsplash.com/photo-1547592166-23ac45744acd",
+  },
 ];

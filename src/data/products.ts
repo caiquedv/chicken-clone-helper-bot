@@ -1,3 +1,4 @@
+
 import { Product } from "./types";
 
 export const products: Product[] = [
@@ -92,7 +93,7 @@ export const products: Product[] = [
     price: 60.0,
     category_id: "frango-assado",
     image_url: "https://i.ibb.co/fYyJK511/frango-a-passarinho.jpg",
-    status: "active",
+    status: "inactive",
   },
 
   // FRANGO CROCANTE (TIPO AMERICANO)
@@ -159,7 +160,7 @@ export const products: Product[] = [
     price: 49.90,
     category_id: "promocoes",
     image_url: "https://i.ibb.co/N2XQds6q/frango-a-passarinho-por-o-familiar.jpg",
-    status: "active",
+    status: "inactive",
   },
   {
     id: "passarinho-empanado-coca",
@@ -168,7 +169,7 @@ export const products: Product[] = [
     price: 59.90,
     category_id: "promocoes",
     image_url: "https://i.ibb.co/N2XQds6q/frango-a-passarinho-por-o-familiar.jpg",
-    status: "active",
+    status: "inactive",
   },
 
   // FRANGO FRITO EMPANADO
@@ -188,7 +189,7 @@ export const products: Product[] = [
     price: 60.0,
     category_id: "frango-frito-empanado",
     image_url: "https://i.ibb.co/N2XQds6q/frango-a-passarinho-por-o-familiar.jpg",
-    status: "active",
+    status: "inactive",
   },
 
   // COMBOS
@@ -326,7 +327,7 @@ export const products: Product[] = [
     price: 35.0,
     category_id: "porcoes",
     image_url: "https://i.ibb.co/fYyJK511/frango-a-passarinho.jpg",
-    status: "active",
+    status: "inactive",
   },
   {
     id: "passarinho-familiar-porcoes",
@@ -335,7 +336,7 @@ export const products: Product[] = [
     price: 50.0,
     category_id: "porcoes",
     image_url: "https://i.ibb.co/fYyJK511/frango-a-passarinho.jpg",
-    status: "active",
+    status: "inactive",
   },
   {
     id: "mista",
@@ -353,6 +354,35 @@ export const products: Product[] = [
     price: 45.0,
     category_id: "porcoes",
     image_url: "https://i.ibb.co/tMMtXX5h/por-o-mista-familiar.jpg",
+    status: "active",
+  },
+
+  // CALDOS
+  {
+    id: "caldo-mandioca-carne",
+    name: "Caldo de Mandioca com carne",
+    description: "Caldo cremoso com base de mandioca e carne desfiada. 500ml",
+    price: 18.0,
+    category_id: "caldos",
+    image_url: "https://images.unsplash.com/photo-1547592166-23ac45744acd",
+    status: "active",
+  },
+  {
+    id: "caldo-abobora-frango",
+    name: "Caldo de abóbora com frango",
+    description: "Caldo cremoso a base de abóbora cobotian com frango desfiado, muito saboroso. 500ml.",
+    price: 18.0,
+    category_id: "caldos",
+    image_url: "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a",
+    status: "active",
+  },
+  {
+    id: "caldo-verde",
+    name: "Caldo Verde",
+    description: "Caldo cremoso a base de batata com couve e calabresa. 500 ml.",
+    price: 18.0,
+    category_id: "caldos",
+    image_url: "https://images.unsplash.com/photo-1547592180-85f173990554",
     status: "active",
   },
 ];

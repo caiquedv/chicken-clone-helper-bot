@@ -1,4 +1,3 @@
-
 import { Product } from "./types";
 
 export const products: Product[] = [
@@ -364,7 +363,7 @@ export const products: Product[] = [
     description: "Caldo cremoso com base de mandioca e carne desfiada. 500ml",
     price: 18.0,
     category_id: "caldos",
-    image_url: "https://images.unsplash.com/photo-1547592166-23ac45744acd",
+    image_url: "https://i.ibb.co/TDQvJdxk/caldo-de-mandioca-com-carne.webp",
     status: "active",
   },
   {
@@ -373,7 +372,7 @@ export const products: Product[] = [
     description: "Caldo cremoso a base de abóbora cobotian com frango desfiado, muito saboroso. 500ml.",
     price: 18.0,
     category_id: "caldos",
-    image_url: "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a",
+    image_url: "https://i.ibb.co/4Z3W0qCX/caldo-de-abobora-com-frango.webp",
     status: "active",
   },
   {
@@ -382,7 +381,7 @@ export const products: Product[] = [
     description: "Caldo cremoso a base de batata com couve e calabresa. 500 ml.",
     price: 18.0,
     category_id: "caldos",
-    image_url: "https://images.unsplash.com/photo-1547592180-85f173990554",
+    image_url: "https://i.ibb.co/LXtwbTQ3/caldo-verde.webp",
     status: "active",
   },
 ];

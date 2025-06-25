@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Product } from "@/data/mockData";
+import { Product } from "@/data/types";
 import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
@@ -14,6 +14,13 @@ const ProductGrid: React.FC<ProductGridProps> = ({
   products,
   onAddToCart
 }) => {
+  // Função para verificar se deve mostrar a descrição
+  const shouldShowDescription = (description?: string | null): boolean => {
+    if (!description) return false;
+    if (description.trim() === "Sem descrição") return false;
+    return true;
+  };
+
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {products.map((item) => (
@@ -30,9 +37,11 @@ const ProductGrid: React.FC<ProductGridProps> = ({
           </div>
           <CardHeader>
             <CardTitle className="text-xl">{item.name}</CardTitle>
-            <p className="text-gray-600">
-              {item.description || "Delicioso produto do nosso cardápio"}
-            </p>
+            {shouldShowDescription(item.description) && (
+              <p className="text-gray-600">
+                {item.description}
+              </p>
+            )}
           </CardHeader>
 
           <CardFooter className="flex justify-between items-center">

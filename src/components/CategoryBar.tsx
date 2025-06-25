@@ -1,6 +1,6 @@
 
 import React, { useRef, useState, useEffect } from "react";
-import { mockCategories, Category } from "@/data/mockData";
+import { mockCategories, mockProducts, Category } from "@/data/mockData";
 
 interface CategoryBarProps {
   activeCategory: string;
@@ -9,12 +9,20 @@ interface CategoryBarProps {
 
 function getOrderedCategories(): Category[] {
   if (!mockCategories || mockCategories.length === 0) return [];
+  
+  // Filtrar apenas categorias que têm produtos ativos
+  const categoriesWithActiveProducts = mockCategories.filter(category => {
+    return mockProducts.some(product => 
+      product.category_id === category.id && product.status === "active"
+    );
+  });
+  
   const byName = (name: string) =>
-    mockCategories.find(cat => cat.name.toLowerCase().includes(name));
+    categoriesWithActiveProducts.find(cat => cat.name.toLowerCase().includes(name));
   const prom = byName("promo");
   const combo = byName("combo");
   const bebidas = byName("bebida");
-  const rest = mockCategories.filter(
+  const rest = categoriesWithActiveProducts.filter(
     cat => cat !== prom && cat !== combo && cat !== bebidas
   );
   const ordered = [prom, combo, ...rest, bebidas].filter(Boolean) as Category[];
@@ -53,7 +61,6 @@ const CategoryBar: React.FC<CategoryBarProps> = ({
   }, []);
 
   useEffect(() => {
-    // Sempre checa ao renderizar
     checkScrollEdges();
   }, [categories.length]);
 
@@ -131,7 +138,6 @@ const CategoryBar: React.FC<CategoryBarProps> = ({
           })}
         </div>
       </div>
-      {/* gradientes suaves nas laterais, só exibem quando necessário */}
       {showLeft && (
         <div
           className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 z-20"

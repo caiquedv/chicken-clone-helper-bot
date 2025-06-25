@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
@@ -9,24 +10,34 @@ import { useNavigate } from "react-router-dom";
 import CategoryBar from "@/components/CategoryBar";
 import ProductGrid from "@/components/ProductGrid";
 import SearchSection from "@/components/SearchSection";
+import { textContains } from "@/utils/textUtils";
 
 const Menu = () => {
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState<string>("");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [categoryBeforeSearch, setCategoryBeforeSearch] = useState<string>("");
 
   const { addToCart, getTotalItems } = useCart();
 
-  // Função para ordenar as categorias dinamicamente:
+  // Função para ordenar as categorias dinamicamente (apenas com produtos ativos):
   const getOrderedCategories = () => {
     if (!mockCategories || mockCategories.length === 0) return [];
+    
+    // Filtrar apenas categorias que têm produtos ativos
+    const categoriesWithActiveProducts = mockCategories.filter(category => {
+      return mockProducts.some(product => 
+        product.category_id === category.id && product.status === "active"
+      );
+    });
+    
     const byName = (name: string) =>
-      mockCategories.find(cat => cat.name.toLowerCase().includes(name));
+      categoriesWithActiveProducts.find(cat => cat.name.toLowerCase().includes(name));
     const prom = byName("promo");
     const combo = byName("combo");
     const bebidas = byName("bebida");
-    const rest = mockCategories.filter(cat =>
+    const rest = categoriesWithActiveProducts.filter(cat =>
       cat !== prom && cat !== combo && cat !== bebidas
     );
     const ordered = [
@@ -51,7 +62,7 @@ const Menu = () => {
     filterProducts();
   }, [activeCategory, searchQuery]);
 
-  // Corrigindo e investigando a filtragem
+  // Melhorando a filtragem com busca sem acentos
   const filterProducts = () => {
     let filtered = mockProducts.filter((p) => p.status === "active");
 
@@ -64,13 +75,11 @@ const Menu = () => {
     if (searchQuery) {
       filtered = filtered.filter(
         (product) =>
-          product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          (product.description &&
-            product.description.toLowerCase().includes(searchQuery.toLowerCase()))
+          textContains(product.name, searchQuery) ||
+          (product.description && textContains(product.description, searchQuery))
       );
     }
 
-    // LOG para depuração!
     console.log('Filtro -> Categoria:', activeCategory, '| Busca:', searchQuery);
     console.log(
       'Produtos filtrados:',
@@ -97,8 +106,18 @@ const Menu = () => {
   };
 
   const handleSearch = (query: string) => {
+    // Se está iniciando uma busca (query não vazia) e não havia busca antes
+    if (query && !searchQuery) {
+      setCategoryBeforeSearch(activeCategory); // Salva a categoria atual
+      setActiveCategory(""); // Limpa categoria para mostrar todos os produtos na busca
+    }
+    
+    // Se está limpando a busca (query vazia) e havia uma busca antes
+    if (!query && searchQuery) {
+      setActiveCategory(categoryBeforeSearch); // Restaura a categoria anterior
+    }
+    
     setSearchQuery(query);
-    if (query) setActiveCategory("");
   };
 
   const totalItems = getTotalItems();

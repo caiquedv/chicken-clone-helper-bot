@@ -16,7 +16,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({
 }) => (
   <div>
     <div className="flex justify-center">
-      <SearchBar onSearch={onSearch} />
+      <SearchBar onSearch={onSearch} searchQuery={searchQuery} />
     </div>
     {searchQuery && (
       <div className="mb-8 mt-4">

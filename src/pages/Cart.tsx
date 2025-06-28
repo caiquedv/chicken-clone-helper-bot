@@ -1,4 +1,4 @@
-// ...code as described in your script for Cart page...
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Separator } from '@/components/ui/separator';
-import { Minus, Plus, Trash2, ShoppingBag, AlertCircle } from 'lucide-react';
+import { Minus, Plus, Trash2, ShoppingBag, AlertCircle, Edit } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -32,6 +32,24 @@ const Cart = () => {
 
   const generateOrderId = () => {
     return Math.random().toString(36).substring(2, 10).toUpperCase();
+  };
+
+  const handleEditItem = (itemId: string) => {
+    const item = items.find(i => i.id === itemId);
+    if (item) {
+      // Navegar para detalhes do produto extraindo o ID base
+      const baseProductId = item.id.split('-')[0];
+      navigate(`/product/${baseProductId}?edit=${itemId}`);
+    }
+  };
+
+  const getItemDisplayPrice = (item: any) => {
+    const basePrice = item.price * item.quantity;
+    const additionalsPrice = (item.additionals || []).reduce(
+      (total: number, additional: any) => total + (additional.price * additional.quantity),
+      0
+    );
+    return basePrice + additionalsPrice;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -86,11 +104,23 @@ const Cart = () => {
     }
   };
 
-  // Mensagem de pedido customizada conforme pedido do usuário:
   const createWhatsAppMessage = (orderId: string) => {
-    const itemsList = items.map(item =>
-      `${item.quantity}x ${item.name} - R$ ${(item.price * item.quantity).toFixed(2)}`
-    ).join('\n');
+    const itemsList = items.map(item => {
+      let itemText = `${item.quantity}x ${item.name} - R$ ${(item.price * item.quantity).toFixed(2)}`;
+      
+      if (item.additionals && item.additionals.length > 0) {
+        const additionalsText = item.additionals.map(add => 
+          `  + ${add.quantity}x ${add.name} - R$ ${(add.price * add.quantity).toFixed(2)}`
+        ).join('\n');
+        itemText += '\n' + additionalsText;
+      }
+      
+      if (item.observations) {
+        itemText += `\n  Obs: ${item.observations}`;
+      }
+      
+      return itemText;
+    }).join('\n\n');
 
     let message = `🍗 *NOVO PEDIDO* - ${orderId}\n\n`;
     message += `👤 *Cliente:* ${customerName}\n`;
@@ -99,9 +129,8 @@ const Cart = () => {
 
     message += `🛒 *Itens:*\n${itemsList}\n`;
     if (observations) {
-      message += `\n📝 *Observações:* ${observations}\n`;
+      message += `\n📝 *Observações Gerais:* ${observations}\n`;
     }
-    // Nova formatação solicitada:
     message += `\n⏱️ *Tempo de espera estimado: 40 minutos*\n`;
     message += `———————————————\n`;
     message += `💰 *Total a pagar: R$ ${total.toFixed(2)}*\n`;
@@ -167,34 +196,69 @@ const Cart = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 {items.map((item) => (
-                  <div key={item.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border rounded-lg overflow-x-auto">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold break-words">{item.name}</h3>
-                      <p className="text-gray-600">R$ {item.price.toFixed(2)} cada</p>
+                  <div key={item.id} className="border rounded-lg p-4 space-y-3">
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold break-words">{item.name}</h3>
+                        <p className="text-gray-600">
+                          {item.quantity}x R$ {item.price.toFixed(2)} = R$ {(item.price * item.quantity).toFixed(2)}
+                        </p>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleEditItem(item.id)}
+                        >
+                          <Edit className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => removeFromCart(item.id)}
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 sm:gap-3 mt-2 sm:mt-0">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => updateQuantity(item.id, Math.max(0, item.quantity - 1))}
-                      >
-                        <Minus className="w-4 h-4" />
-                      </Button>
-                      <span className="w-8 text-center">{item.quantity}</span>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                      >
-                        <Plus className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="destructive"
-                        onClick={() => removeFromCart(item.id)}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
+                    
+                    {item.additionals && item.additionals.length > 0 && (
+                      <div className="ml-4 space-y-1">
+                        {item.additionals.map((additional) => (
+                          <div key={additional.id} className="text-sm text-gray-600">
+                            + {additional.quantity}x {additional.name} - R$ {(additional.price * additional.quantity).toFixed(2)}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    
+                    {item.observations && (
+                      <div className="text-sm text-gray-600 italic">
+                        Obs: {item.observations}
+                      </div>
+                    )}
+                    
+                    <div className="flex justify-between items-center pt-2 border-t">
+                      <div className="flex items-center gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => updateQuantity(item.id, Math.max(0, item.quantity - 1))}
+                        >
+                          <Minus className="w-4 h-4" />
+                        </Button>
+                        <span className="w-8 text-center">{item.quantity}</span>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        >
+                          <Plus className="w-4 h-4" />
+                        </Button>
+                      </div>
+                      <div className="font-semibold">
+                        Total: R$ {getItemDisplayPrice(item).toFixed(2)}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -263,7 +327,7 @@ const Cart = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="observations">Observações</Label>
+                    <Label htmlFor="observations">Observações Gerais</Label>
                     <Textarea
                       id="observations"
                       value={observations}

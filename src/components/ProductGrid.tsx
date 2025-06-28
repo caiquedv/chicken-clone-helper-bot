@@ -1,9 +1,8 @@
 
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Product } from "@/data/types";
 import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
 
 interface ProductGridProps {
   products: Product[];
@@ -12,8 +11,9 @@ interface ProductGridProps {
 
 const ProductGrid: React.FC<ProductGridProps> = ({
   products,
-  onAddToCart
 }) => {
+  const navigate = useNavigate();
+
   // Função para verificar se deve mostrar a descrição
   const shouldShowDescription = (description?: string | null): boolean => {
     if (!description) return false;
@@ -21,10 +21,18 @@ const ProductGrid: React.FC<ProductGridProps> = ({
     return true;
   };
 
+  const handleProductClick = (productId: string) => {
+    navigate(`/product/${productId}`);
+  };
+
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {products.map((item) => (
-        <Card key={item.id} className="hover:shadow-lg transition-shadow duration-300">
+        <Card 
+          key={item.id} 
+          className="hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+          onClick={() => handleProductClick(item.id)}
+        >
           <div className="relative">
             <img
               src={item.image_url || "https://images.unsplash.com/photo-1562967914-608f82629710"}
@@ -48,13 +56,9 @@ const ProductGrid: React.FC<ProductGridProps> = ({
             <div className="text-2xl font-bold text-red-600">
               R$ {Number(item.price).toFixed(2)}
             </div>
-            <Button
-              onClick={() => onAddToCart(item)}
-              className="bg-red-600 hover:bg-red-700"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Adicionar
-            </Button>
+            <div className="text-sm text-gray-500">
+              Clique para personalizar
+            </div>
           </CardFooter>
         </Card>
       ))}

@@ -1,4 +1,5 @@
 
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,6 +8,7 @@ import { CartProvider } from "@/hooks/useCart";
 import { useEffect } from "react";
 import Menu from "./pages/Menu";
 import Cart from "./pages/Cart";
+import ProductDetails from "./pages/ProductDetails";
 import NotFound from "./pages/NotFound";
 
 // Componente para lidar com redirecionamentos do GitHub Pages
@@ -38,6 +40,7 @@ const App = () => (
         <RedirectHandler />
         <Routes>
           <Route path="/" element={<Menu />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

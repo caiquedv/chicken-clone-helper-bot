@@ -5,6 +5,12 @@ export type Category = {
   image_url?: string;
 };
 
+export type ProductAdditional = {
+  id: string;
+  name: string;
+  price: number;
+};
+
 export type Product = {
   id: string;
   name: string;
@@ -13,4 +19,5 @@ export type Product = {
   category_id: string;
   image_url?: string;
   status?: "active" | "inactive";
+  additionals?: ProductAdditional[];
 };

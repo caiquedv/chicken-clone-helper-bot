@@ -1,12 +1,21 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
+export interface CartItemAdditional {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 export interface CartItem {
   id: string;
   name: string;
   price: number;
   quantity: number;
   image: string;
+  observations?: string;
+  additionals?: CartItemAdditional[];
 }
 
 interface CartContextType {
@@ -14,6 +23,7 @@ interface CartContextType {
   addToCart: (item: Omit<CartItem, 'quantity'>) => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
+  updateItem: (id: string, item: Omit<CartItem, 'quantity'>) => void;
   clearCart: () => void;
   getTotalPrice: () => number;
   getTotalItems: () => number;
@@ -71,12 +81,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  const updateItem = (id: string, updatedItem: Omit<CartItem, 'quantity'>) => {
+    setItems(prev =>
+      prev.map(item =>
+        item.id === id ? { ...updatedItem, quantity: item.quantity } : item
+      )
+    );
+  };
+
   const clearCart = () => {
     setItems([]);
   };
 
   const getTotalPrice = () => {
-    return items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return items.reduce((total, item) => {
+      const itemTotal = item.price * item.quantity;
+      const additionalsTotal = (item.additionals || []).reduce(
+        (addTotal, additional) => addTotal + (additional.price * additional.quantity),
+        0
+      );
+      return total + itemTotal + additionalsTotal;
+    }, 0);
   };
 
   const getTotalItems = () => {
@@ -89,6 +114,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       addToCart,
       removeFromCart,
       updateQuantity,
+      updateItem,
       clearCart,
       getTotalPrice,
       getTotalItems

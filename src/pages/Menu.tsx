@@ -106,7 +106,8 @@ const Menu = () => {
       name: item.name,
       price: item.price,
       quantity: 1,
-      image: item.image_url || "https://images.unsplash.com/photo-1562967914-608f82629710"
+      image: item.image_url || "https://images.unsplash.com/photo-1562967914-608f82629710",
+      productId: ""
     });
     toast({
       title: "Item adicionado!",

@@ -19,7 +19,7 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { addToCart, updateItem, items } = useCart();
-  
+
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [observations, setObservations] = useState('');
@@ -34,7 +34,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const editId = urlParams.get('edit');
-    
+
     if (editId) {
       const existingItem = items.find(item => item.id === editId);
       if (existingItem) {
@@ -74,11 +74,11 @@ const ProductDetails = () => {
 
   const handleQuantityChange = (newQuantity: number) => {
     if (newQuantity < 1) return;
-    
+
     setQuantity(newQuantity);
-    
+
     // Ajustar adicionais se a quantidade diminuiu
-    setSelectedAdditionals(prev => 
+    setSelectedAdditionals(prev =>
       prev.map(additional => ({
         ...additional,
         quantity: Math.min(additional.quantity, newQuantity)
@@ -91,13 +91,13 @@ const ProductDetails = () => {
 
     setSelectedAdditionals(prev => {
       const existing = prev.find(a => a.id === additionalId);
-      
+
       if (newQuantity === 0) {
         return prev.filter(a => a.id !== additionalId);
       }
-      
+
       if (existing) {
-        return prev.map(a => 
+        return prev.map(a =>
           a.id === additionalId ? { ...a, quantity: newQuantity } : a
         );
       } else {
@@ -106,7 +106,7 @@ const ProductDetails = () => {
           return [...prev, { ...additional, quantity: newQuantity }];
         }
       }
-      
+
       return prev;
     });
   };
@@ -128,6 +128,7 @@ const ProductDetails = () => {
   const handleAddToCart = () => {
     const cartItem: Omit<CartItem, 'quantity'> = {
       id: isEditing ? editingItemId! : `${product.id}-${Date.now()}`,
+      productId: product.id,
       name: product.name,
       price: product.price,
       image: product.image_url || "https://images.unsplash.com/photo-1562967914-608f82629710",
@@ -142,7 +143,6 @@ const ProductDetails = () => {
         description: `${product.name} foi atualizado no carrinho.`,
       });
     } else {
-      // Adicionar como um único item com a quantidade especificada
       addToCart({ ...cartItem, quantity });
       toast({
         title: "Item adicionado!",

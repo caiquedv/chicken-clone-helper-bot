@@ -35,10 +35,16 @@ const Cart = () => {
 
   const handleEditItem = (itemId: string) => {
     const item = items.find(i => i.id === itemId);
-    if (item) {
-      // Navegar para detalhes do produto extraindo o ID base
-      const baseProductId = item.id.split('-')[0];
-      navigate(`/product/${baseProductId}?edit=${itemId}`);
+
+    if (item && item.productId) {
+      navigate(`/product/${item.productId}?edit=${itemId}`);
+    } else {
+      toast({
+        title: "Erro ao editar",
+        description: "Não foi possível encontrar o produto original para edição.",
+        variant: "destructive",
+      });
+      console.error("O item do carrinho não possui um 'productId' para a navegação.", item);
     }
   };
 

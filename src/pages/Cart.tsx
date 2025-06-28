@@ -218,17 +218,11 @@ const Cart = () => {
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold break-words">{item.name}</h3>
                         <p className="text-gray-600">
-                          {item.quantity}x R$ {item.price.toFixed(2)} = R$ {(item.price * item.quantity).toFixed(2)}
+                          {item.quantity} unidades de R$ {item.price.toFixed(2)}
                         </p>
                       </div>
                       <div className="flex gap-2">
-                        <button
-                          className="text-red-600 hover:text-red-700 font-medium text-sm"
-                          onClick={() => handleEditItem(item.id)}
-                          type="button"
-                        >
-                          Editar
-                        </button>
+
                         <Button
                           size="sm"
                           variant="destructive"
@@ -240,10 +234,10 @@ const Cart = () => {
                     </div>
                     
                     {item.additionals && item.additionals.length > 0 && (
-                      <div className="ml-4 space-y-1">
+                      <div>
                         {item.additionals.map((additional) => (
                           <div key={additional.id} className="text-sm text-gray-600">
-                            + {additional.quantity}x {additional.name} - R$ {(additional.price * additional.quantity).toFixed(2)}
+                            + {additional.quantity} {additional.name} - R$ {(additional.price * additional.quantity).toFixed(2)}
                           </div>
                         ))}
                       </div>
@@ -255,7 +249,14 @@ const Cart = () => {
                       </div>
                     )}
                     
-                    <div className="flex justify-end pt-2 border-t">
+                    <div className="flex justify-between pt-2 border-t">
+                      <button
+                        className="text-red-600 hover:text-red-700 font-medium text-sm"
+                        onClick={() => handleEditItem(item.id)}
+                        type="button"
+                      >
+                        Editar
+                      </button>
                       <div className="font-semibold">
                         Total: R$ {getItemDisplayPrice(item).toFixed(2)}
                       </div>
@@ -295,12 +296,12 @@ const Cart = () => {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <Label htmlFor="name">Nome Completo *</Label>
+                    <Label htmlFor="name">Nome *</Label>
                     <Input
                       id="name"
                       value={customerName}
                       onChange={(e) => setCustomerName(e.target.value)}
-                      placeholder="Seu nome completo"
+                      placeholder="Seu nome"
                       required
                     />
                   </div>
@@ -370,7 +371,7 @@ const Cart = () => {
               </Card>
               <Button
                 type="submit"
-                className="w-full bg-red-600 hover:bg-red-700 py-6 text-lg"
+                className="w-full bg-red-600 hover:bg-red-700 py-6 text-md"
                 disabled={isSubmitting}
               >
                 {isSubmitting

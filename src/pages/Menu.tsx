@@ -85,16 +85,7 @@ const Menu = () => {
           textContains(product.name, searchQuery) ||
           (product.description && textContains(product.description, searchQuery))
       );
-    }
-
-    console.log('Filtro -> Categoria:', activeCategory, '| Busca:', searchQuery);
-    console.log(
-      'Produtos filtrados:',
-      filtered.map((p) => ({
-        nome: p.name,
-        categoria: p.category_id,
-      }))
-    );
+    };
 
     setFilteredProducts(filtered);
   };
@@ -150,7 +141,7 @@ const Menu = () => {
       )}
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-5">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Nosso <span className="text-red-600">Cardápio</span>
           </h1>

@@ -56,7 +56,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
             )}
           </CardHeader>
 
-          <CardFooter className="absolute bottom-4 left-4">
+          <CardFooter>
             <div className="text-2xl font-bold text-red-600">
               R$ {Number(item.price).toFixed(2)}
             </div>

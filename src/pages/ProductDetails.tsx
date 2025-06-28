@@ -12,6 +12,7 @@ import { products } from '@/data/products';
 import { Product, ProductAdditional } from '@/data/types';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import DevGemsCredit from '@/components/DevGemsCredit';
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -179,9 +180,8 @@ const ProductDetails = () => {
         <Button
           variant="ghost"
           onClick={handleBackButton}
-          className="mb-6"
+          className="bg-red-600 text-white hover:bg-red-700 mb-8"
         >
-          <ArrowLeft className="w-4 h-4 mr-2" />
           {isFromCart ? 'Voltar ao Carrinho' : 'Voltar ao Cardápio'}
         </Button>
 
@@ -322,7 +322,9 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className="mt-6">
+        <DevGemsCredit />
+      </div>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 import DevGemsCredit from "@/components/DevGemsCredit";
 import { useCart } from "@/hooks/useCart";
 import { toast } from "@/hooks/use-toast";
@@ -149,8 +148,6 @@ const Menu = () => {
           </button>
         </div>
       )}
-
-      <FloatingWhatsAppButton />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="text-center mb-12">

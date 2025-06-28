@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -29,6 +28,9 @@ const ProductDetails = () => {
 
   // Get the category from URL params or location state
   const categoryFromState = location.state?.category;
+
+  // Detectar se veio do carrinho
+  const isFromCart = new URLSearchParams(window.location.search).has('edit');
 
   // Verificar se está editando um item existente
   useEffect(() => {
@@ -150,16 +152,20 @@ const ProductDetails = () => {
       });
     }
 
-    // Navigate back to menu with category preserved
-    if (categoryFromState) {
+    // Navigate back based on origin
+    if (isFromCart) {
+      navigate('/cart');
+    } else if (categoryFromState) {
       navigate('/', { state: { activeCategory: categoryFromState } });
     } else {
       navigate('/');
     }
   };
 
-  const handleBackToMenu = () => {
-    if (categoryFromState) {
+  const handleBackButton = () => {
+    if (isFromCart) {
+      navigate('/cart');
+    } else if (categoryFromState) {
       navigate('/', { state: { activeCategory: categoryFromState } });
     } else {
       navigate('/');
@@ -172,11 +178,11 @@ const ProductDetails = () => {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Button
           variant="ghost"
-          onClick={handleBackToMenu}
+          onClick={handleBackButton}
           className="mb-6"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Voltar ao Cardápio
+          {isFromCart ? 'Voltar ao Carrinho' : 'Voltar ao Cardápio'}
         </Button>
 
         <div className="grid md:grid-cols-2 gap-8">

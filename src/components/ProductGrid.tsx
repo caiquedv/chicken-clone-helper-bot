@@ -34,7 +34,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
       {products.map((item) => (
         <Card 
           key={item.id} 
-          className="hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+          className="hover:shadow-lg transition-shadow duration-300 cursor-pointer relative"
           onClick={() => handleProductClick(item.id)}
         >
           <div className="relative">
@@ -56,12 +56,9 @@ const ProductGrid: React.FC<ProductGridProps> = ({
             )}
           </CardHeader>
 
-          <CardFooter className="flex justify-between items-center">
+          <CardFooter className="absolute bottom-4 left-4">
             <div className="text-2xl font-bold text-red-600">
               R$ {Number(item.price).toFixed(2)}
-            </div>
-            <div className="text-sm text-gray-500">
-              Clique para personalizar
             </div>
           </CardFooter>
         </Card>

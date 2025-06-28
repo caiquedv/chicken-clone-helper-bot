@@ -7,16 +7,16 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Separator } from '@/components/ui/separator';
-import { Minus, Plus, Trash2, ShoppingBag, AlertCircle, Edit } from 'lucide-react';
+import { Trash2, ShoppingBag, AlertCircle } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import DevGemsCredit from '@/components/DevGemsCredit';
 import { useCart } from '@/hooks/useCart';
 import { toast } from '@/hooks/use-toast';
 
 const Cart = () => {
   const navigate = useNavigate();
-  const { items, updateQuantity, removeFromCart, clearCart, getTotalPrice } = useCart();
+  const { items, removeFromCart, clearCart, getTotalPrice } = useCart();
 
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
@@ -171,7 +171,9 @@ const Cart = () => {
             </Button>
           </div>
         </div>
-        <Footer />
+        <div className="pb-8">
+          <DevGemsCredit />
+        </div>
       </div>
     );
   }
@@ -180,7 +182,17 @@ const Cart = () => {
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       <Navbar />
       <div className="w-full max-w-4xl mx-auto px-2 sm:px-4 py-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center sm:text-left break-words">Finalizar Pedido</h1>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+          <h1 className="text-3xl font-bold text-gray-800 break-words">Finalizar Pedido</h1>
+          <Button
+            onClick={() => navigate('/')}
+            variant="outline"
+            className="bg-red-600 text-white hover:bg-red-700"
+          >
+            Voltar ao Cardápio
+          </Button>
+        </div>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
           {/* Itens do Carrinho */}
           <div className="space-y-6">
@@ -213,6 +225,7 @@ const Cart = () => {
                         <button
                           className="text-red-600 hover:text-red-700 font-medium text-sm"
                           onClick={() => handleEditItem(item.id)}
+                          type="button"
                         >
                           Editar
                         </button>
@@ -242,24 +255,7 @@ const Cart = () => {
                       </div>
                     )}
                     
-                    <div className="flex justify-between items-center pt-2 border-t">
-                      <div className="flex items-center gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => updateQuantity(item.id, Math.max(0, item.quantity - 1))}
-                        >
-                          <Minus className="w-4 h-4" />
-                        </Button>
-                        <span className="w-8 text-center">{item.quantity}</span>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        >
-                          <Plus className="w-4 h-4" />
-                        </Button>
-                      </div>
+                    <div className="flex justify-end pt-2 border-t">
                       <div className="font-semibold">
                         Total: R$ {getItemDisplayPrice(item).toFixed(2)}
                       </div>
@@ -291,7 +287,6 @@ const Cart = () => {
             </Card>
           </div>
 
-          {/* Formulário de Entrega */}
           <div>
             <form onSubmit={handleSubmit} className="space-y-6">
               <Card>
@@ -383,10 +378,12 @@ const Cart = () => {
                   : `Enviar Pedido via WhatsApp - R$ ${total.toFixed(2)}`}
               </Button>
             </form>
+            <div className="mt-6">
+              <DevGemsCredit />
+            </div>
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

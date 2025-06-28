@@ -6,7 +6,7 @@ import DevGemsCredit from "@/components/DevGemsCredit";
 import { useCart } from "@/hooks/useCart";
 import { toast } from "@/hooks/use-toast";
 import { mockCategories, mockProducts, type Product } from "@/data/mockData";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import CategoryBar from "@/components/CategoryBar";
 import ProductGrid from "@/components/ProductGrid";
 import SearchSection from "@/components/SearchSection";
@@ -14,6 +14,7 @@ import { textContains } from "@/utils/textUtils";
 
 const Menu = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeCategory, setActiveCategory] = useState<string>("");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -50,13 +51,20 @@ const Menu = () => {
     return ordered;
   };
 
-  // Altere aqui: sempre iniciar pela 1ª da ordem correta
+  // Check if there's a category from navigation state
   useEffect(() => {
-    const ordered = getOrderedCategories();
-    if (ordered.length > 0) {
-      setActiveCategory(String(ordered[0].id));
+    if (location.state?.activeCategory) {
+      setActiveCategory(location.state.activeCategory);
+      // Clear the state to prevent stale data
+      window.history.replaceState({}, document.title);
+    } else {
+      // Always start with the first category in the correct order
+      const ordered = getOrderedCategories();
+      if (ordered.length > 0) {
+        setActiveCategory(String(ordered[0].id));
+      }
     }
-  }, []);
+  }, [location.state]);
 
   useEffect(() => {
     filterProducts();
@@ -94,9 +102,10 @@ const Menu = () => {
 
   const handleAddToCart = (item: Product) => {
     addToCart({
-      id: item.id,
+      id: `${item.id}-${Date.now()}`,
       name: item.name,
       price: item.price,
+      quantity: 1,
       image: item.image_url || "https://images.unsplash.com/photo-1562967914-608f82629710"
     });
     toast({
@@ -166,6 +175,7 @@ const Menu = () => {
         <ProductGrid
           products={filteredProducts}
           onAddToCart={handleAddToCart}
+          activeCategory={activeCategory}
         />
       </div>
       <div

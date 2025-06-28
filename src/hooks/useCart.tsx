@@ -20,10 +20,10 @@ export interface CartItem {
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (item: Omit<CartItem, 'quantity'>) => void;
+  addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
-  updateItem: (id: string, item: Omit<CartItem, 'quantity'>) => void;
+  updateItem: (id: string, item: CartItem) => void;
   clearCart: () => void;
   getTotalPrice: () => number;
   getTotalItems: () => number;
@@ -51,18 +51,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('bigchicken-cart', JSON.stringify(items));
   }, [items]);
 
-  const addToCart = (item: Omit<CartItem, 'quantity'>) => {
-    setItems(prev => {
-      const existingItem = prev.find(cartItem => cartItem.id === item.id);
-      if (existingItem) {
-        return prev.map(cartItem =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        );
-      }
-      return [...prev, { ...item, quantity: 1 }];
-    });
+  const addToCart = (item: CartItem) => {
+    setItems(prev => [...prev, item]);
   };
 
   const removeFromCart = (id: string) => {
@@ -81,10 +71,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  const updateItem = (id: string, updatedItem: Omit<CartItem, 'quantity'>) => {
+  const updateItem = (id: string, updatedItem: CartItem) => {
     setItems(prev =>
       prev.map(item =>
-        item.id === id ? { ...updatedItem, quantity: item.quantity } : item
+        item.id === id ? updatedItem : item
       )
     );
   };

@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -17,6 +17,7 @@ import Footer from '@/components/Footer';
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const { addToCart, updateItem, items } = useCart();
   
   const [product, setProduct] = useState<Product | null>(null);
@@ -25,6 +26,9 @@ const ProductDetails = () => {
   const [selectedAdditionals, setSelectedAdditionals] = useState<CartItemAdditional[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
+
+  // Get the category from URL params or location state
+  const categoryFromState = location.state?.category;
 
   // Verificar se está editando um item existente
   useEffect(() => {
@@ -132,26 +136,34 @@ const ProductDetails = () => {
     };
 
     if (isEditing && editingItemId) {
-      updateItem(editingItemId, cartItem);
+      updateItem(editingItemId, { ...cartItem, quantity });
       toast({
         title: "Item atualizado!",
         description: `${product.name} foi atualizado no carrinho.`,
       });
     } else {
-      // Para novos itens, usar o sistema antigo de addToCart com quantidade
-      for (let i = 0; i < quantity; i++) {
-        addToCart({
-          ...cartItem,
-          id: `${product.id}-${Date.now()}-${i}`,
-        });
-      }
+      // Adicionar como um único item com a quantidade especificada
+      addToCart({ ...cartItem, quantity });
       toast({
         title: "Item adicionado!",
         description: `${product.name} foi adicionado ao carrinho.`,
       });
     }
 
-    navigate('/cart');
+    // Navigate back to menu with category preserved
+    if (categoryFromState) {
+      navigate('/', { state: { activeCategory: categoryFromState } });
+    } else {
+      navigate('/');
+    }
+  };
+
+  const handleBackToMenu = () => {
+    if (categoryFromState) {
+      navigate('/', { state: { activeCategory: categoryFromState } });
+    } else {
+      navigate('/');
+    }
   };
 
   return (
@@ -160,7 +172,7 @@ const ProductDetails = () => {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <Button
           variant="ghost"
-          onClick={() => navigate('/')}
+          onClick={handleBackToMenu}
           className="mb-6"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />

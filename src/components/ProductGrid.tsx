@@ -7,10 +7,12 @@ import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 interface ProductGridProps {
   products: Product[];
   onAddToCart: (item: Product) => void;
+  activeCategory?: string;
 }
 
 const ProductGrid: React.FC<ProductGridProps> = ({
   products,
+  activeCategory
 }) => {
   const navigate = useNavigate();
 
@@ -22,7 +24,9 @@ const ProductGrid: React.FC<ProductGridProps> = ({
   };
 
   const handleProductClick = (productId: string) => {
-    navigate(`/product/${productId}`);
+    navigate(`/product/${productId}`, { 
+      state: { category: activeCategory } 
+    });
   };
 
   return (

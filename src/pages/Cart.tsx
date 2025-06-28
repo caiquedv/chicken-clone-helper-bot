@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -205,13 +204,12 @@ const Cart = () => {
                         </p>
                       </div>
                       <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          variant="outline"
+                        <button
+                          className="text-red-600 hover:text-red-700 font-medium text-sm"
                           onClick={() => handleEditItem(item.id)}
                         >
-                          <Edit className="w-4 h-4" />
-                        </Button>
+                          Editar
+                        </button>
                         <Button
                           size="sm"
                           variant="destructive"

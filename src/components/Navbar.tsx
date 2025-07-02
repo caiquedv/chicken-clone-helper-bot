@@ -13,8 +13,13 @@ const Navbar = () => {
             className="flex items-center cursor-pointer"
             onClick={() => navigate("/")}
           >
-            <span className="text-2xl font-bold text-red-600" translate="no">
-              🍗 Big Chicken
+            <img
+              src="/bclogo2.webp"
+              alt="Big Chicken Logo"
+              className="max-h-20 object-contain transition-transform duration-300 ease-in-out hover:scale-105"
+            />
+            <span className="text-2xl font-bold text-red-600 ml-2" translate="no">
+              Big Chicken
             </span>
           </div>
           {/* Header limpo sem botoes do carrinho ou whatsapp */}
